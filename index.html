@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Digital Dynamo</title>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto+Slab:wght@400;700&display=swap" rel="stylesheet">
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Roboto Slab', serif;
+      background-color: #000;
+      color: #fff;
+      padding: 40px 20px;
+      text-align: center;
+    }
+    h1 {
+      font-size: 2.5em;
+    }
+    .course-list {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      margin-top: 40px;
+      gap: 20px;
+    }
+    .course {
+      background: #111;
+      border-radius: 12px;
+      padding: 20px;
+      width: 220px;
+      box-shadow: 0 0 10px rgba(255,255,255,0.1);
+    }
+    .course h3 {
+      font-size: 1.2em;
+      margin-bottom: 10px;
+    }
+    .course p {
+      margin: 8px 0;
+    }
+    .buy-btn {
+      padding: 10px 20px;
+      background: white;
+      color: black;
+      font-weight: bold;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+    .buy-btn:hover {
+      background-color: #f0f0f0;
+      color: #000;
+    }
+    #cart {
+      margin-top: 30px;
+    }
+    @media (max-width: 600px) {
+      .course {
+        width: 100%;
+      }
+    }
+  </style>
+</head>
+<body>
+  <h1>Welcome to Digital Dynamo</h1>
+  <p>Premium Digital Courses at your fingertips</p>
+  
+  <div class="course-list">
+    <div class="course">
+      <h3>Digital Marketing</h3>
+      <p>₹1000</p>
+      <button class="buy-btn" onclick="addToCart('Digital Marketing', 1000)">Add to Cart</button>
+    </div>
+    <div class="course">
+      <h3>AI Learning</h3>
+      <p>₹2000</p>
+      <button class="buy-btn" onclick="addToCart('AI Learning', 2000)">Add to Cart</button>
+    </div>
+    <div class="course">
+      <h3>Stock Market</h3>
+      <p>₹5000</p>
+      <button class="buy-btn" onclick="addToCart('Stock Market', 5000)">Add to Cart</button>
+    </div>
+    <div class="course">
+      <h3>Crypto Trading</h3>
+      <p>₹10000</p>
+      <button class="buy-btn" onclick="addToCart('Crypto Trading', 10000)">Add to Cart</button>
+    </div>
+  </div>
+
+  <div id="cart">
+    <h2>Cart</h2>
+    <ul id="cartItems"></ul>
+    <p id="totalPrice"></p>
+    <button class="buy-btn" onclick="payNow()">Pay Now</button>
+  </div>
+
+  <script>
+    let cart = [];
+
+    function addToCart(course, price) {
+      cart.push({ course, price });
+      updateCart();
+    }
+
+    function updateCart() {
+      const cartList = document.getElementById('cartItems');
+      const totalPriceEl = document.getElementById('totalPrice');
+      const cartDiv = document.getElementById('cart');
+      cartList.innerHTML = '';
+      let total = 0;
+
+      if (cart.length === 0) {
+        cartDiv.style.display = 'none';
+        return;
+      } else {
+        cartDiv.style.display = 'block';
+      }
+
+      cart.forEach(item => {
+        const li = document.createElement('li');
+        li.textContent = `${item.course} - ₹${item.price}`;
+        cartList.appendChild(li);
+        total += item.price;
+      });
+
+      totalPriceEl.textContent = `Total: ₹${total}`;
+    }
+
+    function payNow() {
+      alert("This is a demo. Razorpay integration can be added here.");
+    }
+
+    window.onload = () => document.getElementById('cart').style.display = 'none';
+  </script>
+
+  <!-- AI Chat Support (Tidio) -->
+  <script src="//code.tidio.co/0qtnrelxeexlcw2pxtp2kz9ay4k0um5y.js" async></script>
+</body>
+</html>
