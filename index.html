@@ -1,0 +1,367 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Digital Dynamo</title>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto+Slab:wght@700&display=swap" rel="stylesheet" />
+  <style>
+    * {
+      margin: 0; padding: 0; box-sizing: border-box;
+    }
+    body {
+      font-family: 'Roboto Slab', serif;
+      background-color: #000;
+      color: #fff;
+      padding: 20px;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      gap: 30px;
+    }
+    header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 1px solid #333;
+      padding-bottom: 15px;
+    }
+    .logo-text {
+      font-weight: 700;
+      font-size: 36px;
+      letter-spacing: 4px;
+      color: #fff;
+      font-style: italic;
+      text-transform: uppercase;
+      text-shadow: 0 0 10px #fff;
+      user-select: none;
+    }
+    nav a {
+      margin-left: 25px;
+      color: #fff;
+      text-decoration: none;
+      font-weight: 600;
+      font-size: 16px;
+      transition: color 0.3s ease;
+    }
+    nav a:hover {
+      color: #00bfff;
+      text-decoration: underline;
+    }
+    .intro {
+      text-align: center;
+      font-size: 1.3rem;
+      font-weight: 400;
+      letter-spacing: 1px;
+    }
+    .course-list {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 25px;
+    }
+    .course {
+      background: #111;
+      border-radius: 15px;
+      padding: 25px;
+      width: 260px;
+      box-shadow: 0 0 15px rgba(0,191,255,0.3);
+      transition: transform 0.3s ease;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+    .course:hover {
+      transform: translateY(-8px);
+      box-shadow: 0 0 25px #00bfff;
+    }
+    .course h3 {
+      font-size: 1.4em;
+      margin-bottom: 12px;
+      font-weight: 700;
+    }
+    .course p {
+      margin-bottom: 15px;
+      font-size: 1.1rem;
+      font-weight: 500;
+      color: #ccc;
+    }
+    .btn {
+      padding: 12px 22px;
+      background: #00bfff;
+      color: #000;
+      font-weight: 700;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: background 0.3s ease;
+      width: 100%;
+      text-align: center;
+    }
+    .btn:hover {
+      background: #0099cc;
+      color: #fff;
+    }
+    #cart {
+      max-width: 700px;
+      margin: 0 auto;
+      background: #111;
+      padding: 25px;
+      border-radius: 15px;
+      box-shadow: 0 0 20px rgba(0,191,255,0.4);
+      color: #fff;
+    }
+    #cart h2 {
+      margin-bottom: 20px;
+      font-weight: 700;
+      letter-spacing: 2px;
+      text-align: center;
+    }
+    #cartItems {
+      list-style: none;
+      padding-left: 0;
+      margin-bottom: 20px;
+      max-height: 220px;
+      overflow-y: auto;
+    }
+    #cartItems li {
+      display: flex;
+      justify-content: space-between;
+      background: #222;
+      margin-bottom: 10px;
+      padding: 12px 15px;
+      border-radius: 8px;
+      font-weight: 600;
+      font-size: 1rem;
+    }
+    #cartItems li button {
+      background: #ff4c4c;
+      border: none;
+      color: white;
+      font-weight: 700;
+      border-radius: 6px;
+      cursor: pointer;
+      padding: 5px 10px;
+      transition: background 0.3s ease;
+    }
+    #cartItems li button:hover {
+      background: #cc0000;
+    }
+    #totalPrice {
+      font-weight: 700;
+      font-size: 1.2rem;
+      text-align: right;
+      margin-bottom: 20px;
+      color: #00bfff;
+    }
+    form#orderForm {
+      background: #222;
+      padding: 20px;
+      border-radius: 12px;
+      max-width: 700px;
+      margin: 0 auto;
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+    }
+    form#orderForm label {
+      font-weight: 600;
+      font-size: 1rem;
+      margin-bottom: 4px;
+    }
+    form#orderForm input, form#orderForm textarea {
+      padding: 10px;
+      border-radius: 8px;
+      border: none;
+      font-size: 1rem;
+      resize: vertical;
+    }
+    form#orderForm button {
+      align-self: flex-start;
+      width: auto;
+      background: #00bfff;
+      color: #000;
+      font-weight: 700;
+      cursor: pointer;
+      padding: 12px 25px;
+      border-radius: 8px;
+      border: none;
+      transition: background 0.3s ease;
+    }
+    form#orderForm button:hover {
+      background: #0099cc;
+      color: #fff;
+    }
+    #reviews {
+      max-width: 900px;
+      margin: 40px auto;
+    }
+    #reviews h2 {
+      text-align: center;
+      margin-bottom: 25px;
+      font-weight: 700;
+      letter-spacing: 2px;
+      font-size: 2rem;
+      color: #00bfff;
+    }
+    .review {
+      background: #111;
+      border-radius: 12px;
+      padding: 20px;
+      margin-bottom: 20px;
+      box-shadow: 0 0 15px rgba(0,191,255,0.3);
+    }
+    .review p {
+      font-style: italic;
+      margin-bottom: 8px;
+      color: #ccc;
+    }
+    .review .author {
+      font-weight: 700;
+      font-size: 1rem;
+      text-align: right;
+      color: #00bfff;
+    }
+    footer {
+      text-align: center;
+      padding: 20px;
+      font-size: 0.9rem;
+      color: #555;
+    }
+    @media (max-width: 700px) {
+      .course-list {
+        flex-direction: column;
+        align-items: center;
+      }
+      .course {
+        width: 90%;
+      }
+      #cart, form#orderForm {
+        width: 90%;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <div class="logo-text">Digital Dynamo</div>
+    <nav>
+      <a href="index.html">Home</a>
+      <a href="about.html">About</a>
+      <a href="contact.html">Contact</a>
+      <a href="admin.html" target="_blank" rel="noopener noreferrer">Admin</a>
+    </nav>
+  </header>
+
+  <div class="intro">Premium Digital Courses at your fingertips</div>
+
+  <section class="course-list" aria-label="Available courses">
+    <div class="course">
+      <h3>Digital Marketing</h3>
+      <p>₹1000</p>
+      <button class="btn" onclick="addToCart('Digital Marketing', 1000)">Add to Cart</button>
+    </div>
+    <div class="course">
+      <h3>AI Learning</h3>
+      <p>₹2000</p>
+      <button class="btn" onclick="addToCart('AI Learning', 2000)">Add to Cart</button>
+    </div>
+    <div class="course">
+      <h3>Stock Market</h3>
+      <p>₹5000</p>
+      <button class="btn" onclick="addToCart('Stock Market', 5000)">Add to Cart</button>
+    </div>
+    <div class="course">
+      <h3>Crypto Trading</h3>
+      <p>₹10000</p>
+      <button class="btn" onclick="addToCart('Crypto Trading', 10000)">Add to Cart</button>
+    </div>
+  </section>
+
+  <section id="cart" aria-label="Shopping cart">
+    <h2>Your Cart</h2>
+    <ul id="cartItems" aria-live="polite"></ul>
+    <p id="totalPrice"></p>
+  </section>
+
+  <section id="checkout" aria-label="Checkout form">
+    <form id="orderForm">
+      <h2>Order Details</h2>
+      <label for="customerName">Full Name*</label>
+      <input type="text" id="customerName" name="customerName" required />
+      <label for="customerEmail">Email*</label>
+      <input type="email" id="customerEmail" name="customerEmail" required />
+      <label for="customerPhone">Phone Number*</label>
+      <input type="tel" id="customerPhone" name="customerPhone" required pattern="[0-9]{10,15}" />
+      <label for="customerAddress">Address*</label>
+      <textarea id="customerAddress" name="customerAddress" rows="3" required></textarea>
+      <button type="submit" class="btn">Place Order</button>
+    </form>
+  </section>
+
+  <section id="reviews" aria-label="Customer reviews">
+    <h2>Customer Reviews</h2>
+
+    <div class="review">
+      <p>"Digital Dynamo courses are top-notch. I learned so much about marketing!"</p>
+      <div class="author">- Anjali P.</div>
+    </div>
+    <div class="review">
+      <p>"The AI Learning course helped me land a new job in tech."</p>
+      <div class="author">- Rohit S.</div>
+    </div>
+    <div class="review">
+      <p>"Stock Market insights are explained clearly, great for beginners."</p>
+      <div class="author">- Meena K.</div>
+    </div>
+    <div class="review">
+      <p>"Crypto Trading course is detailed and up-to-date with real-world examples."</p>
+      <div class="author">- Arun T.</div>
+    </div>
+    <div class="review">
+      <p>"Excellent content and responsive support team."</p>
+      <div class="author">- Priya L.</div>
+    </div>
+    <div class="review">
+      <p>"Affordable courses with practical lessons. Highly recommend!"</p>
+      <div class="author">- Sameer N.</div>
+    </div>
+    <div class="review">
+      <p>"Loved the interactive lessons in Digital Marketing."</p>
+      <div class="author">- Kavita R.</div>
+    </div>
+    <div class="review">
+      <p>"The order process was smooth and simple."</p>
+      <div class="author">- Ankit G.</div>
+    </div>
+    <div class="review">
+      <p>"Customer support answered all my questions quickly."</p>
+      <div class="author">- Seema D.</div>
+    </div>
+    <div class="review">
+      <p>"I’m excited to try out the Crypto course next!"</p>
+      <div class="author">- Rahul M.</div>
+    </div>
+  </section>
+
+  <footer>
+    &copy; 2025 Digital Dynamo. All rights reserved.
+  </footer>
+
+  <!-- JavaScript -->
+  <script>
+    // Cart data
+    let cart = [];
+
+    function addToCart(course, price) {
+      cart.push({ course, price });
+      updateCart();
+    }
+
+    function removeFromCart(index) {
+      cart.splice(index, 1);
+      updateCart();
+    }
+
+    function
